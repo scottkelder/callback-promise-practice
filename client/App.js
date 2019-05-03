@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   addTodo() {
-    axios.post('http://localhost:3000/todos', this.state.input)
+    axios.post('http://localhost:3000/todos', {data: this.state.input})
       .then((data) => console.log('Made it there and back again!'))
   }
   componentDidMount() {
