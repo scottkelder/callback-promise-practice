@@ -1,50 +1,37 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import Axios from 'axios';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      input: '',
-      response: ''
-    }
-    this.inputStyle = {
-      width: '240px',
-      height: '30px',
-      fontSize: '16px',
-    }
-    this.pStyle = {
-      fontSize: '16px'
+      todos: [],
+      input: ''
     }
   }
-  updateInput(datuh) {
-    this.setState({input: datuh});
-  }
-  launchPayload(dutah) {
-    Axios.post('/input', dutah)
-      .then(data => this.setState({response: data}))
-      .catch(err => console.log(err, 'failed to post'))
+
+  addTodo() {
+    axios.post('http://localhost:3000/todos', this.state.input)
+      .then((data) => console.log('Made it there and back again!'))
   }
   componentDidMount() {
-    Axios.get('/input')
-      .then(data => this.setState({response: data}))
-      .catch(err => console.log(err, 'failed to fetch'))
+    axios.get('http://localhost:3000/todos')
+      .then(data => console.log(data))
   }
   render() {
     return (
-      <>
+      <div>
         <input 
-          type='text'
-          placeholder='High-quality placeholder text'
-          style={this.inputStyle}
-          onChange={event => this.updateInput(event.target.value)}
-          onKeyDown={event => event.key === "Enter" ? (this.launchPayload(this.state.input), event.target.value = null ): null }
+          classname={'input'} 
+          type={'text'}
+          onChange={(event)=>this.setState({input: event.target.value})}
+          onKeyDown={ event => event.key === "Enter" ? this.addTodo() : null }
         >
         </input>
-        <p style={this.pStyle}></p>
-      </>
+      </div>
     )
   }
 }
+
 ReactDOM.render(<App />, document.getElementById('root'));

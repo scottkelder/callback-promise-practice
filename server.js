@@ -1,18 +1,19 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
 const app = express();
-const port = process.env.PORT || 4444;
+const bodyParser = require('body-parser');
+const cors = require('cors');
+app.use(bodyParser());
+app.use(cors());
 
-app.use(bodyParser.json({urlEncoded: false}));
-app.use(express.static(path.join(__dirname, '/dist')));
-
-//Create callback-based get/post routes here
-
-
-//Create promisified get/post routes here
-
-
-app.listen(port, () => {
-  console.log(`listening on port ${port}`)
+app.get('/todos', (req, res) => {
+  res.send('Made it to the todos endpoint with a GET request');
 })
+
+app.post('/todos', (req, res) => {
+  console.log(req.body);
+  res.status(201).send('Made it there');
+})
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000')
+});
