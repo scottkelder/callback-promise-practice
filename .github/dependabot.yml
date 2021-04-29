@@ -1,0 +1,25 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: knex
+    versions:
+    - 0.21.16
+    - 0.21.17
+    - 0.21.18
+    - 0.21.19
+    - 0.95.0
+    - 0.95.1
+    - 0.95.2
+    - 0.95.3
+  - dependency-name: webpack-cli
+    versions:
+    - 4.4.0
+    - 4.5.0
+  - dependency-name: react
+    versions:
+    - 17.0.1
